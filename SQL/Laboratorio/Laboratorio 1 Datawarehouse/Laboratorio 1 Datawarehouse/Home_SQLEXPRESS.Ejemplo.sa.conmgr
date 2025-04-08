@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="Home_SQLEXPRESS.Ejemplo.sa"
+  DTS:DTSID="{E136C584-2DAF-46B9-93C5-973EBB1F83EA}"
+  DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectionString="Data Source=Home\SQLEXPRESS;User ID=sa;Initial Catalog=Ejemplo;Application Name=SSIS-Laboratorio 1 Datawarehouse-{E136C584-2DAF-46B9-93C5-973EBB1F83EA}Home\SQLEXPRESS.Ejemplo.sa;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAehglR6KvY0+w5MEOYiM13wAAAAACAAAAAAAQZgAAAAEAACAAAAAAK0p7r5KpgMPWaeOoDa7VZamldl86F776DbHrsjGDUQAAAAAOgAAAAAIAACAAAACqNgsZuOUXwmEC3+KjtVQB6PwTKmUu73rPJH/Dl7k2ZoAAAAA6GuKP6DamTYK6yiNGFBW8XBjSh+24fUfsm0MC+r06hoqixQWX/VSzKQwrnoXxXVjWHtDBfYdwxq2uvdh4VfPPlNn81rYHNmA055IyAOOUbDhb1fZaiQ4MBVWOCag/PUdBRoeqKYuZ9blW1AfuDqRI4jTHu/wmG/B8VVgXM4v3TUAAAABkQreLbpOKeKlf6yEpglGGmSKhVGgjZcaURRx6TtWshyi+Qraxs8iCUWBIUEouf6RGUB+zi7ewJ1uoEMQMrZr+</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
