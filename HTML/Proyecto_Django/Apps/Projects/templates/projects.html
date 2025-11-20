@@ -1,0 +1,141 @@
+﻿{% extends 'base.html' %}
+{% load static %}`r`n{% load humanize %}
+
+{% block content %}
+    <!-- TABLA DE PROYECTOS -->
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1200px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Proyectos</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <input type="text" class="form-control form-control-sm" style="width:220px" placeholder="Buscar..." data-table-filter="#tbl-projects" />
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                    <a href="{% url 'project_create' %}" class="btn btn-primary btn-sm">
+                        <i class="bx bx-plus"></i> Nuevo proyecto
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <div class="table-responsive">
+                    <table id="tbl-projects" class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">ID</th>
+                                <th style="width: 25%;">NOMBRE DEL PROYECTO</th>
+                                <th style="width: 20%;">CLIENTE</th>
+                                <th style="width: 12%;">FECHA DE INICIO</th>
+                                <th style="width: 10%;">ESTADO</th>
+                                <th style="width: 25%;">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for proyecto in proyectos %}
+                            <tr>
+                                <td>{{ proyecto.id_proyecto }}</td>
+                                <td>{{ proyecto.nombre_proyecto }}</td>
+                                <td>{{ proyecto.id_cliente.nombre_cliente }}</td>
+                                <td>{{ proyecto.fecha_inicio|date:"Y-m-d" }}</td>
+                                <td>
+                                    {% if proyecto.estado == 'Completado' %}
+                                        <span class="badge bg-success">{{ proyecto.estado }}</span>
+                                    {% elif proyecto.estado == 'En Progreso' %}
+                                        <span class="badge bg-primary">{{ proyecto.estado }}</span>
+                                    {% elif proyecto.estado == 'Planificación' %}
+                                        <span class="badge bg-info">{{ proyecto.estado }}</span>
+                                    {% elif proyecto.estado == 'Cancelado' %}
+                                        <span class="badge bg-danger">{{ proyecto.estado }}</span>
+                                    {% elif proyecto.estado == 'En Espera' %}
+                                        <span class="badge bg-warning">{{ proyecto.estado }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ proyecto.estado|default:"-" }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'project_detail' proyecto.id_proyecto %}" class="btn btn-sm btn-info">
+                                        <i class="bx bx-show"></i>
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                    <a href="{% url 'project_update' proyecto.id_proyecto %}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <a href="{% url 'project_delete' proyecto.id_proyecto %}" class="btn btn-sm btn-danger">
+                                        <i class="bx bx-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay proyectos registrados</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TABLA DE PRESUPUESTOS -->
+    {% if request.user.is_superuser or request.user.is_staff %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1200px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Presupuestos</h5>
+                <div class="d-flex align-items-center gap-2">
+                    <input type="text" class="form-control form-control-sm" style="width:220px" placeholder="Buscar..." data-table-filter="#tbl-budgets" />
+                    <a href="{% url 'budget_create' %}" class="btn btn-success btn-sm">
+                        <i class="bx bx-plus"></i> Nuevo presupuesto
+                    </a>
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <div class="table-responsive">
+                    <table id="tbl-budgets" class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">ID</th>
+                                <th style="width: 30%;">PROYECTO</th>
+                                <th style="width: 15%;">MONTO TOTAL</th>
+                                <th style="width: 27%;">DESCRIPCIÓN</th>
+                                <th style="width: 20%;">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for presupuesto in presupuestos %}
+                            <tr>
+                                <td>{{ presupuesto.id_presupuesto }}</td>
+                                <td>{{ presupuesto.id_proyecto.nombre_proyecto }}</td>
+                                <td>Q{{ presupuesto.monto_total|floatformat:2|intcomma }}</td>
+                                <td>{{ presupuesto.DESCRIPCIÓN|truncatewords:5|default:"-" }}</td>
+                                <td>
+                                    <a href="{% url 'budget_detail' presupuesto.id_presupuesto %}" class="btn btn-sm btn-info">
+                                        <i class="bx bx-show"></i>
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                    <a href="{% url 'budget_update' presupuesto.id_presupuesto %}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <a href="{% url 'budget_delete' presupuesto.id_presupuesto %}" class="btn btn-sm btn-danger">
+                                        <i class="bx bx-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No hay presupuestos registrados</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}
+
+
+

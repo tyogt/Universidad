@@ -1,0 +1,53 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1000px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Detalle de contrato</h5>
+                <a href="{% url 'contract_update' contrato.id_contrato %}" class="btn btn-warning">
+                    <i class="bx bx-edit"></i> Editar
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr>
+                        <th width="200">ID:</th>
+                        <td>{{ contrato.id_contrato }}</td>
+                    </tr>
+                    <tr>
+                        <th>Subcontratista:</th>
+                        <td>
+                            <a href="{% url 'subcontractor_detail' contrato.id_subcontratista.id_subcontratista %}">
+                                {{ contrato.id_subcontratista.nombre }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Proyecto:</th>
+                        <td>
+                            <a href="{% url 'project_detail' contrato.id_proyecto.id_proyecto %}">
+                                {{ contrato.id_proyecto.nombre_proyecto }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de inicio:</th>
+                        <td>{{ contrato.fecha_inicio|date:"Y-m-d" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de fin:</th>
+                        <td>{{ contrato.fecha_fin|date:"Y-m-d"|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Condiciones:</th>
+                        <td>{{ contrato.condiciones|default:"-" }}</td>
+                    </tr>
+                </table>
+                <a href="{% url 'subcontractorsapp' %}" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

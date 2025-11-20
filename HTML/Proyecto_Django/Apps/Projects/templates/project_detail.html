@@ -1,0 +1,64 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1000px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Detalle de proyecto</h5>
+                <a href="{% url 'project_update' proyecto.id_proyecto %}" class="btn btn-warning">
+                    <i class="bx bx-Editar"></i> Editar
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tr>
+                        <th width="200">ID:</th>
+                        <td>{{ proyecto.id_proyecto }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del proyecto:</th>
+                        <td>{{ proyecto.nombre_proyecto }}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción:</th>
+                        <td>{{ proyecto.descripcion|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cliente:</th>
+                        <td>{{ proyecto.id_cliente.nombre_cliente }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de inicio:</th>
+                        <td>{{ proyecto.fecha_inicio|date:"Y-m-d" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de fin:</th>
+                        <td>{{ proyecto.fecha_fin|date:"Y-m-d"|default:"-" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estado:</th>
+                        <td>
+                            {% if proyecto.estado == 'Completado' %}
+                                <span class="badge bg-success">{{ proyecto.estado }}</span>
+                            {% elif proyecto.estado == 'En Progreso' %}
+                                <span class="badge bg-primary">{{ proyecto.estado }}</span>
+                            {% elif proyecto.estado == 'Planificación' %}
+                                <span class="badge bg-info">{{ proyecto.estado }}</span>
+                            {% elif proyecto.estado == 'Cancelado' %}
+                                <span class="badge bg-danger">{{ proyecto.estado }}</span>
+                            {% elif proyecto.estado == 'En Espera' %}
+                                <span class="badge bg-warning">{{ proyecto.estado }}</span>
+                            {% else %}
+                                <span class="badge bg-secondary">{{ proyecto.estado|default:"-" }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                <a href="{% url 'projectsapp' %}" class="btn btn-secondary">Volver</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
