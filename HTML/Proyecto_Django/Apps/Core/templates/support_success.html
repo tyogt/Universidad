@@ -1,0 +1,34 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="card text-center" style="width: 90%; max-width: 600px;">
+            <div class="card-body py-5">
+                <div class="mb-4">
+                    <i class="bx bx-check-circle text-success" style="font-size: 5rem;"></i>
+                </div>
+
+                <h3 class="mb-3">¡Solicitud Enviada Exitosamente!</h3>
+
+                <p class="text-muted mb-4">
+                    Gracias por contactar a nuestro equipo de soporte. Hemos recibido su solicitud y responderemos a su dirección de correo electrónico lo antes posible.
+                </p>
+                
+                <div class="alert alert-info d-inline-block">
+                    <i class="bx bx-time-five"></i>
+                    Tiempo de respuesta típico: 24-48 horas
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{% url 'homeapp' %}" class="btn btn-primary">
+                        <i class="bx bx-home"></i> Volver a Inicio
+                    </a>
+                    <a href="{% url 'core:support' %}" class="btn btn-outline-secondary">
+                        <i class="bx bx-plus"></i> Enviar Otra Solicitud
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
