@@ -1,0 +1,487 @@
+﻿{% load static %}
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+  lang="es"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-template="vertical-menu-template-free"
+  data-theme-mode="light"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Panel - Analítica</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'img/favicon/logo-dim.png' %}" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{% static 'vendor/fonts/boxicons.css' %}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/css/core.css' %}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/theme-mode.css' %}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static 'vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'vendor/libs/apex-charts/apex-charts.css' %}" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="{% static 'vendor/js/helpers.js' %}"></script>
+    <!-- Dark/Light early loader: evita parpadeo de tema -->
+    <script>
+      (function () {
+        try {
+          var key = 'themeMode';
+          var saved = localStorage.getItem(key);
+          var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var mode = saved || (systemDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme-mode', mode);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and Ayudaers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{% static 'js/config.js' %}"></script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="{% url 'homeapp' %}" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <img src="{% static 'img/favicon/logo-dim.png' %}" alt="DIM Logo" style="height: 42px; width: auto;">
+      </span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">DIM S.A.</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+
+            <!-- Proyectos -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Proyectos</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'projectsapp' %}active{% endif %}">
+              <a href="{% url 'projectsapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-crown"></i>
+                <div data-i18n="Analytics">Proyectos</div>
+              </a>
+            </li>
+
+            <!-- Formularios y Tablas -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Formularios y Tablas</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'qualityapp' %}active{% endif %}">
+              <a href="{% url 'quality:qualityapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Analytics">Calidad</div>
+              </a>
+            </li>
+
+            <!-- Subcontratistas -->
+
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Subcontratistas</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'subcontractorsapp' %}active{% endif %}">
+              <a href="{% url 'subcontractorsapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-layout"></i>
+                <div data-i18n="Analytics">Subcontratistas</div>
+              </a>
+            </li>
+
+            <!-- Clientes -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Clientes</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'clientsapp' %}active{% endif %}">
+              <a href="{% url 'clients:clientsapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-crown"></i>
+                <div data-i18n="Analytics">Clientes</div>
+              </a>
+            </li>
+            <!-- Documentos -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Documentos</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'documentsapp' %}active{% endif %}">
+              <a href="{% url 'documents:documentsapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Analytics">Documentos</div>
+              </a>
+            </li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'equipmentapp' %}active{% endif %}">
+              <a href="{% url 'equipmentapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                <div data-i18n="Analytics">Equipos</div>
+              </a>
+            </li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'financeapp' %}active{% endif %}">
+              <a href="{% url 'financeapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Analytics">Finanzas</div>
+              </a>
+            </li>
+              <li class="menu-item {% if request.resolver_match.url_name == 'inventoryapp' %}active{% endif %}">
+              <a href="{% url 'inventoryapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Analytics">Inventario</div>
+              </a>
+            </li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'reportsapp' %}active{% endif %}">
+              <a href="{% url 'reportsapp' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Analytics">Reportes</div>
+              </a>
+
+            <!-- Ayuda  -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Ayuda</span></li>
+            <li class="menu-item {% if request.resolver_match.url_name == 'support' %}active{% endif %}">
+              <a
+                href="{% url 'core:support' %}"
+                class="menu-link"
+              >
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div data-i18n="Support">Soporte</div>
+              </a>
+            </li>
+
+            
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4 layout-menu-toggle" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- Section where the projects in progress will go -->
+                <li class="nav-item lh-1 me-3">
+                  <a>Número de Proyectos</a>
+                </li>
+
+                
+
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="{% static 'img/avatars/10.png' %}"/>
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block">{{ request.user.get_full_name|default:request.user.username }}</span>
+                            <small class="text-muted d-block">{{ request.user.email }}</small>
+                            <small class="text-muted">{% if request.user.is_superuser %}Administrador{% elif request.user.is_staff %}Supervisor{% else %}Cliente{% endif %}</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'core:profile' %}"> <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">Mi Perfil</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Configuración</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'core:logout' %}">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Cerrar sesión</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
+
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Global messages -->
+            {% if messages %}
+            <div class="container-xxl mt-3">
+              {% for message in messages %}
+              <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <!-- Content -->
+        {% block content %}
+                       
+        {% endblock %}
+                </div>
+                </div>
+              </div>
+            </div>
+            <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                </div>
+              </div>
+            </footer>
+            <div class="content-backdrop fade"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+   
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="{% static 'vendor/libs/jquery/jquery.js' %}"></script>
+    <script src="{% static 'vendor/libs/popper/popper.js' %}"></script>
+    <script src="{% static 'vendor/js/bootstrap.js' %}"></script>
+    <script src="{% static 'vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+
+    <script src="{% static 'vendor/js/menu.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="{% static 'vendor/libs/apex-charts/apexcharts.js' %}"></script>
+
+    <!-- Main JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/table-filters.js' %}"></script>
+
+    <!-- Page JS -->
+    <script src="{% static 'js/dashboards-analytics.js' %}"></script>
+
+    <script>
+      // Persistencia y toggle de tema claro/oscuro
+      (function () {
+        var KEY = 'themeMode';
+        function current() {
+          return document.documentElement.getAttribute('data-theme-mode') || 'light';
+        }
+        function set(mode) {
+          document.documentElement.setAttribute('data-theme-mode', mode);
+          try { localStorage.setItem(KEY, mode); } catch (e) {}
+          var togglers = document.querySelectorAll('[data-theme-toggle="theme"]');
+          togglers.forEach(function(btn){
+            btn.innerHTML = mode === 'dark' ? '<span class="bx bx-sun"></span>' : '<span class="bx bx-moon"></span>';
+          });
+        }
+        function toggle() { set(current() === 'dark' ? 'light' : 'dark'); }
+        // Init icon on load
+        set(current());
+        // Ensure there is a toggler next to "Número de Proyectos"
+        document.addEventListener('DOMContentLoaded', function(){
+          try {
+            var target = document.querySelector('.navbar-nav .nav-item.lh-1.me-3');
+            if (target && !target.querySelector('[data-theme-toggle="theme"]')) {
+              var btn = document.createElement('button');
+              btn.type = 'button';
+              btn.className = 'btn btn-sm btn-outline-secondary ms-2';
+              btn.setAttribute('data-theme-toggle','theme');
+              btn.title = 'Alternar tema';
+              btn.innerHTML = current() === 'dark' ? '<span class="bx bx-sun"></span>' : '<span class="bx bx-moon"></span>';
+              target.appendChild(btn);
+            }
+          } catch (e) {}
+        });
+        // Bind buttons
+        document.addEventListener('click', function (e) {
+          if (e.target.closest && e.target.closest('[data-theme-toggle="theme"]')) {
+            toggle();
+          }
+        });
+      })();
+    </script>
+
+    <script>
+      (function () {
+        function attachFallback() {
+          var toggles = document.querySelectorAll('.layout-menu-toggle');
+          toggles.forEach(function (el) {
+            el.addEventListener(
+              'click',
+              function () {
+                var root = document.documentElement;
+                var small = window.matchMedia('(max-width: 1199.98px)').matches;
+                var wasExpanded = root.classList.contains('layout-menu-expanded');
+                var wasCollapsed = root.classList.contains('layout-menu-collapsed');
+                setTimeout(function () {
+                  var isExpanded = root.classList.contains('layout-menu-expanded');
+                  var isCollapsed = root.classList.contains('layout-menu-collapsed');
+                  if (small) {
+                    if (isExpanded === wasExpanded) {
+                      root.classList.toggle('layout-menu-expanded');
+                    }
+                  } else {
+                    if (isCollapsed === wasCollapsed) {
+                      root.classList.toggle('layout-menu-collapsed');
+                    }
+                  }
+                }, 50);
+              },
+              { passive: false }
+            );
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', attachFallback);
+        } else {
+          attachFallback();
+        }
+      })();
+    </script>
+
+    <script>
+      // Ajustar enlaces del menú de usuario a vistas reales (perfil, logout, config admin)
+      (function(){
+        try {
+          var dropdown = document.querySelector('.dropdown-user');
+          if (dropdown){
+            var isAdmin = {{ request.user.is_superuser|yesno:'true,false' }};
+            var anchors = dropdown.querySelectorAll('a.dropdown-item');
+            anchors.forEach(function(a){
+              var icon = a.querySelector('i');
+              if (!icon) return;
+              if (icon.classList.contains('bx-user')) {
+                a.setAttribute('href', "{% url 'core:profile' %}");
+              } else if (icon.classList.contains('bx-power-off')) {
+                a.setAttribute('href', "{% url 'core:logout' %}");
+              } else if (icon.classList.contains('bx-cog')) {
+                a.setAttribute('href', "{% url 'core:users' %}");
+                if (!isAdmin) {
+                  a.closest('li').style.display = 'none';
+                }
+              } else if (icon.classList.contains('bx-credit-card')) {
+                // Eliminar el botón de Facturación del menú de usuario
+                var li = a.closest('li');
+                if (li && li.parentNode) li.parentNode.removeChild(li);
+              }
+            });
+          }
+        } catch(e) {}
+      })();
+    </script>
+
+    <script>
+      // Ocultar entradas de menú según rol
+      (function(){
+        try {
+          var isAdmin = {{ request.user.is_superuser|yesno:'true,false' }};
+          var isStaff = {{ request.user.is_staff|yesno:'true,false' }};
+          if (!isAdmin){
+            document.querySelectorAll('.menu-inner .menu-item').forEach(function(li){
+              var link = li.querySelector('.menu-link');
+              if (!link) return;
+              var txt = (link.innerText || '').toLowerCase();
+              // Siempre ocultar a no-admin: Clientes y Finanzas
+              if (txt.indexOf('clientes') !== -1 || txt.indexOf('finanzas') !== -1){
+                li.style.display = 'none';
+                return;
+              }
+              // Si es cliente (no staff), ocultar módulos adicionales
+              if (!isStaff){
+                if (
+                  txt.indexOf('subcontratistas') !== -1 ||
+                  txt.indexOf('calidad') !== -1 ||
+                  txt.indexOf('equipos') !== -1 ||
+                  txt.indexOf('inventario') !== -1 ||
+                  txt.indexOf('reportes') !== -1
+                ){
+                  li.style.display = 'none';
+                }
+              }
+            });
+          }
+        } catch(e) {}
+      })();
+    </script>
+
+  </body>
+</html>
+
+
+
+
+
+
+
