@@ -1,0 +1,75 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1200px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Inspections</h5>
+                <div>
+                    <a href="{% url 'quality:inspeccion_create' %}" class="btn btn-primary btn-sm">
+                        <i class="bx bx-plus"></i> Nueva inspección
+                    </a>
+                    <a href="{% url 'quality:qualityapp' %}" class="btn btn-secondary btn-sm">
+                        <i class="bx bx-arrow-Volver"></i> Volver
+                    </a>
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <div class="mb-2 d-flex justify-content-end">
+                    <input type="text" class="form-control form-control-sm" style="max-width:220px" placeholder="Buscar..." data-table-filter="#tbl-inspections" />
+                </div>
+                <div class="table-responsive">
+                    <table id="tbl-inspections" class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">ID</th>
+                                <th style="width: 20%;">FECHA</th>
+                                <th style="width: 15%;">RESULTADO</th>
+                                <th style="width: 35%;">PROYECTO</th>
+                                <th style="width: 20%;">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for inspeccion in inspecciones %}
+                            <tr>
+                                <td>{{ inspeccion.id_inspeccion }}</td>
+                                <td>{{ inspeccion.fecha|date:"Y-m-d" }}</td>
+                                <td>
+                                    {% if inspeccion.resultado == "Cumple" %}
+                                        <span class="badge bg-success">{{ inspeccion.resultado }}</span>
+                                    {% elif inspeccion.resultado == "No Cumple" %}
+                                        <span class="badge bg-danger">{{ inspeccion.resultado }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ inspeccion.resultado|default:"-" }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ inspeccion.id_proyecto.nombre_proyecto }}</td>
+                                <td>
+                                    <a href="{% url 'quality:inspeccion_detail' inspeccion.id_inspeccion %}" class="btn btn-sm btn-info">
+                                        <i class="bx bx-show"></i>
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                    <a href="{% url 'quality:inspeccion_update' inspeccion.id_inspeccion %}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <a href="{% url 'quality:inspeccion_delete' inspeccion.id_inspeccion %}" class="btn btn-sm btn-danger">
+                                        <i class="bx bx-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center">No hay inspecciones registradas</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

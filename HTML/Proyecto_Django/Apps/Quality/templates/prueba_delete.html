@@ -1,0 +1,28 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1000px;">
+            <div class="card-header">
+                <h5 class="mb-0 text-danger">Eliminar Prueba de Calidad</h5>
+            </div>
+            <div class="card-body">
+                <p>¿Estás seguro que deseas eliminar esta prueba de calidad?</p>
+                <ul>
+                    <li><strong>Tipo:</strong> {{ prueba.tipo }}</li>
+                    <li><strong>Resultado:</strong> {{ prueba.resultado|default:"-" }}</li>
+                    <li><strong>Fecha:</strong> {{ prueba.fecha|date:"Y-m-d" }}</li>
+                    <li><strong>Proyecto:</strong> {{ prueba.id_proyecto.nombre_proyecto }}</li>
+                </ul>
+                <p class="text-danger">Esta acción no se puede deshacer.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                    <a href="{% url 'quality:prueba_list' %}" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,82 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1200px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Incidentes</h5>
+                <div>
+                    <a href="{% url 'quality:incidente_create' %}" class="btn btn-primary btn-sm">
+                        <i class="bx bx-plus"></i> Nuevo incidente
+                    </a>
+                    <a href="{% url 'quality:qualityapp' %}" class="btn btn-secondary btn-sm">
+                        <i class="bx bx-arrow-Volver"></i> Volver
+                    </a>
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <div class="mb-2 d-flex justify-content-end">
+                    <input type="text" class="form-control form-control-sm" style="max-width:220px" placeholder="Buscar..." data-table-filter="#tbl-incidents" />
+                </div>
+                <div class="table-responsive">
+                    <table id="tbl-incidents" class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">ID</th>
+                                <th style="width: 30%;">DESCRIPCIÓN</th>
+                                <th style="width: 12%;">SEVERIDAD</th>
+                                <th style="width: 15%;">FECHA</th>
+                                <th style="width: 20%;">PROYECTO</th>
+                                <th style="width: 15%;">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for incidente in incidentes %}
+                            <tr>
+                                <td>{{ incidente.id_incidente }}</td>
+                                <td>{{ incidente.descripcion|truncatewords:10 }}</td>
+                                <td>
+                                    {% if incidente.gravedad == "Baja" %}
+                                        <span class="badge bg-info">{{ incidente.gravedad }}</span>
+                                    {% elif incidente.gravedad == "Media" %}
+                                        <span class="badge bg-warning">{{ incidente.gravedad }}</span>
+                                    {% elif incidente.gravedad == "Alta" %}
+                                        <span class="badge bg-danger">{{ incidente.gravedad }}</span>
+                                    {% elif incidente.gravedad == "CrÃ­tica" %}
+                                        <span class="badge bg-dark">{{ incidente.gravedad }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ incidente.gravedad|default:"-" }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ incidente.fecha|date:"Y-m-d" }}</td>
+                                <td>{{ incidente.id_proyecto.nombre_proyecto }}</td>
+                                <td>
+                                    <a href="{% url 'quality:incidente_detail' incidente.id_incidente %}" class="btn btn-sm btn-info">
+                                        <i class="bx bx-show"></i>
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                    <a href="{% url 'quality:incidente_update' incidente.id_incidente %}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <a href="{% url 'quality:incidente_delete' incidente.id_incidente %}" class="btn btn-sm btn-danger">
+                                        <i class="bx bx-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay incidentes registrados</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,75 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-4">
+        <div class="card" style="width: 90%; max-width: 1200px;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Certificaciones</h5>
+                <div>
+                    <a href="{% url 'quality:certificacion_create' %}" class="btn btn-primary btn-sm">
+                        <i class="bx bx-plus"></i> Nueva certificación
+                    </a>
+                    <a href="{% url 'quality:qualityapp' %}" class="btn btn-secondary btn-sm">
+                        <i class="bx bx-arrow-Volver"></i> Volver
+                    </a>
+                </div>
+            </div>
+            <div class="card-body py-2">
+                <div class="mb-2 d-flex justify-content-end">
+                    <input type="text" class="form-control form-control-sm" style="max-width:220px" placeholder="Buscar..." data-table-filter="#tbl-certifications" />
+                </div>
+                <div class="table-responsive">
+                    <table id="tbl-certifications" class="table table-hover table-sm mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">ID</th>
+                                <th style="width: 25%;">NOMBRE</th>
+                                <th style="width: 15%;">FECHA DE EMISIÓN</th>
+                                <th style="width: 15%;">FECHA DE VENCIMIENTO</th>
+                                <th style="width: 22%;">PROYECTO</th>
+                                <th style="width: 15%;">ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for certificacion in certificaciones %}
+                            <tr>
+                                <td>{{ certificacion.id_certificacion }}</td>
+                                <td>{{ certificacion.nombre }}</td>
+                                <td>{{ certificacion.fecha_emision|date:"Y-m-d" }}</td>
+                                <td>
+                                    {% if certificacion.fecha_vencimiento %}
+                                        {{ certificacion.fecha_vencimiento|date:"Y-m-d" }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ certificacion.id_proyecto.nombre_proyecto }}</td>
+                                <td>
+                                    <a href="{% url 'quality:certificacion_detail' certificacion.id_certificacion %}" class="btn btn-sm btn-info">
+                                        <i class="bx bx-show"></i>
+                                    </a>
+                                    {% if request.user.is_superuser %}
+                                    <a href="{% url 'quality:certificacion_update' certificacion.id_certificacion %}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit"></i>
+                                    </a>
+                                    <a href="{% url 'quality:certificacion_delete' certificacion.id_certificacion %}" class="btn btn-sm btn-danger">
+                                        <i class="bx bx-trash"></i>
+                                    </a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6" class="text-center">No hay certificaciones registradas</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
